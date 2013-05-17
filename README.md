@@ -84,3 +84,4 @@ which the client can then easily turned into a `JsonObject` by:
 ```Java
 new JSONObject(response.getContent())
 ```
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5dfa1a86b42cd5e742c1b4a8b777241c "githalytics.com")](http://githalytics.com/xively/XivelyAndroid)
