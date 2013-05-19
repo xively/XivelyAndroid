@@ -8,9 +8,7 @@ package com.xively.android.service;
  */
 public class UriBuilder
 {
-	private String DEFAULT_BASE_URI = "http://api.dds-db7b88.192.168.60.87.xip.io/v2/";
-
-	// private String DEFAULT_BASE_URI = "https://api.xively.com/v2/";
+	private String DEFAULT_BASE_URI = "https://api.xively.com/v2/";
 
 	/**
 	 * @return url to all Feed API endpoints
