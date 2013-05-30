@@ -1,5 +1,6 @@
-# Xively wrapper for Android (XivelyAndroid)
+# Xively Android library (BETA)
 
+Please note that this library is still in beta.
 
 ## Overview
 
