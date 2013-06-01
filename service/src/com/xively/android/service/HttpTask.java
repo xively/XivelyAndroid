@@ -1,11 +1,10 @@
 package com.xively.android.service;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -70,21 +69,26 @@ public class HttpTask extends AsyncTask<Request, Integer, Response[]>
 			throw new RequestUnsuccessfulException("Cannot make request with malformed URL.", e);
 		}
 
+		HttpURLConnection httpConn = null;
 		try
 		{
-			URLConnection conn = url.openConnection();
-
-			HttpURLConnection httpConn = (HttpURLConnection) conn;
+			httpConn = (HttpURLConnection) url.openConnection();
 			httpConn.setAllowUserInteraction(false);
 			httpConn.setInstanceFollowRedirects(true);
 
 			httpConn.setRequestMethod(request.getHttpMethod());
 			httpConn.setRequestProperty("X-ApiKey", request.getApiKey());
 			httpConn.setRequestProperty("Content-Type", "application/json");
-			// FIXME
-			// httpConn.setRequestProperty("Accept-Encoding", "gzip");
 
-			httpConn.connect();
+			Log.d(TAG, String.format("httpMethod(%s)", request.getHttpMethod()));
+			if (request.getHttpMethod().equals(Request.HTTP_METHOD_PUT) || request.getHttpMethod().equals(Request.HTTP_METHOD_POST) ) {
+				httpConn.setDoOutput(true);
+				httpConn.setFixedLengthStreamingMode(request.getBody().length());
+
+		        OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+		        writer.write(request.getBody());
+		        writer.close();
+			}
 
 			Log.d(TAG, String.format("Response on request: %s", httpConn.getResponseMessage()));
 			String content = ResponseHelper.read(httpConn.getInputStream());
@@ -92,7 +96,11 @@ public class HttpTask extends AsyncTask<Request, Integer, Response[]>
 		} catch (IOException e)
 		{
 			throw new RequestUnsuccessfulException("Unable to open connection for request.", e);
-		}
+		} finally 
+		{
+			if(httpConn != null)
+				httpConn.disconnect(); 
+		} 
 
 		return retval;
 	}
