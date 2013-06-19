@@ -4,6 +4,10 @@
 *.war
 *.ear
 
+*/gen/
+
+out/
+
 log/
 bin/
 .project
@@ -16,3 +20,6 @@ bin/
 */.settings/
 */.classpath
 
+.DS_Store
+
+.sw?
