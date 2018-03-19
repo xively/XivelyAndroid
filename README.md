@@ -21,7 +21,7 @@ It currently supports API9 (Gingerbread) to API17 (Jelly Bean).
 
 _This library is Open Source, under the BSD 3-Clause._
 
-_Copyright © 2003-2013 LogMeIn, Inc. All rights reserved._
+_Copyright © 2003-2013 Xively All rights reserved._
 
 _See `LICENSE.md` for full text of the license._
 
